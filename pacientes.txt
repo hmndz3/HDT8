@@ -1,0 +1,14 @@
+Juan Perez, fractura de pierna, C
+Maria Ramirez, apendicitis, A
+Lorenzo Toledo, chikunguya, E
+Carmen Sarmientos, dolores de parto, B
+Roberto Gomez, dolor de cabeza intenso, B
+Sofia Martinez, corte profundo, C
+Pedro Hernandez, fiebre alta, D
+Ana Jimenez, dificultad respiratoria, A
+Carlos Rodriguez, dolor abdominal leve, D
+Laura Sanchez, mareos y náuseas, C
+Denil Parada, dolor de corazon, B
+Harry Mendez, trauma en la cabeza, A
+Julio Cesar, brazo roto, B 
+Abril Abril, dolor de estomago, D

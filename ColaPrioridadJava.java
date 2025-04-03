@@ -1,5 +1,3 @@
-import java.util.PriorityQueue;
-
 /**
  * Adaptador de Java PriorityQueue para que implemente nuestra interfaz PriorityQueue
  * @param <E> Tipo de elementos que se almacenarán en la cola con prioridad
