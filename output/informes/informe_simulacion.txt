@@ -1,0 +1,157 @@
+
+=== Resultados para config_minima ===
+
+--- Día normal ---
+Pacientes atendidos: 91
+Tiempo de espera promedio: 112.42 minutos
+Tiempo total promedio: 151.83 minutos
+Tiempo máximo de espera: 831.42 minutos
+
+Tiempo promedio por prioridad:
+  Prioridad 1: 103.47 minutos
+  Prioridad 2: 99.21 minutos
+  Prioridad 3: 117.54 minutos
+  Prioridad 4: 384.52 minutos
+  Prioridad 5: 0.00 minutos
+
+--- Día fin_semana ---
+Pacientes atendidos: 94
+Tiempo de espera promedio: 106.60 minutos
+Tiempo total promedio: 146.34 minutos
+Tiempo máximo de espera: 369.88 minutos
+
+Tiempo promedio por prioridad:
+  Prioridad 1: 101.22 minutos
+  Prioridad 2: 96.95 minutos
+  Prioridad 3: 184.14 minutos
+  Prioridad 4: 122.52 minutos
+  Prioridad 5: 0.00 minutos
+
+--- Día festivo ---
+Pacientes atendidos: 91
+Tiempo de espera promedio: 192.66 minutos
+Tiempo total promedio: 233.16 minutos
+Tiempo máximo de espera: 921.38 minutos
+
+Tiempo promedio por prioridad:
+  Prioridad 1: 95.21 minutos
+  Prioridad 2: 104.98 minutos
+  Prioridad 3: 372.31 minutos
+  Prioridad 4: 0.00 minutos
+  Prioridad 5: 0.00 minutos
+
+=== Resultados para config_media ===
+
+--- Día normal ---
+Pacientes atendidos: 148
+Tiempo de espera promedio: 27.77 minutos
+Tiempo total promedio: 64.42 minutos
+Tiempo máximo de espera: 144.91 minutos
+
+Tiempo promedio por prioridad:
+  Prioridad 1: 91.64 minutos
+  Prioridad 2: 71.19 minutos
+  Prioridad 3: 62.80 minutos
+  Prioridad 4: 64.34 minutos
+  Prioridad 5: 47.27 minutos
+
+--- Día fin_semana ---
+Pacientes atendidos: 186
+Tiempo de espera promedio: 30.74 minutos
+Tiempo total promedio: 67.26 minutos
+Tiempo máximo de espera: 126.46 minutos
+
+Tiempo promedio por prioridad:
+  Prioridad 1: 81.72 minutos
+  Prioridad 2: 76.46 minutos
+  Prioridad 3: 68.00 minutos
+  Prioridad 4: 63.23 minutos
+  Prioridad 5: 63.17 minutos
+
+--- Día festivo ---
+Pacientes atendidos: 196
+Tiempo de espera promedio: 120.51 minutos
+Tiempo total promedio: 158.74 minutos
+Tiempo máximo de espera: 886.39 minutos
+
+Tiempo promedio por prioridad:
+  Prioridad 1: 91.12 minutos
+  Prioridad 2: 84.09 minutos
+  Prioridad 3: 88.05 minutos
+  Prioridad 4: 435.41 minutos
+  Prioridad 5: 102.06 minutos
+
+=== Resultados para config_optima ===
+
+--- Día normal ---
+Pacientes atendidos: 144
+Tiempo de espera promedio: 16.11 minutos
+Tiempo total promedio: 53.19 minutos
+Tiempo máximo de espera: 59.59 minutos
+
+Tiempo promedio por prioridad:
+  Prioridad 1: 77.37 minutos
+  Prioridad 2: 72.13 minutos
+  Prioridad 3: 53.87 minutos
+  Prioridad 4: 44.89 minutos
+  Prioridad 5: 31.23 minutos
+
+--- Día fin_semana ---
+Pacientes atendidos: 216
+Tiempo de espera promedio: 23.44 minutos
+Tiempo total promedio: 60.33 minutos
+Tiempo máximo de espera: 140.59 minutos
+
+Tiempo promedio por prioridad:
+  Prioridad 1: 78.48 minutos
+  Prioridad 2: 72.93 minutos
+  Prioridad 3: 62.58 minutos
+  Prioridad 4: 55.00 minutos
+  Prioridad 5: 40.54 minutos
+
+--- Día festivo ---
+Pacientes atendidos: 246
+Tiempo de espera promedio: 72.86 minutos
+Tiempo total promedio: 110.99 minutos
+Tiempo máximo de espera: 613.18 minutos
+
+Tiempo promedio por prioridad:
+  Prioridad 1: 88.56 minutos
+  Prioridad 2: 79.17 minutos
+  Prioridad 3: 76.18 minutos
+  Prioridad 4: 195.78 minutos
+  Prioridad 5: 64.82 minutos
+
+=== Costo total anual para config_minima ===
+Enfermeras (1): $30,000
+Doctores (2): $160,000
+Laboratorios (1): $100,000
+Rayos X (1): $150,000
+Total: $440,000
+
+=== Costo total anual para config_media ===
+Enfermeras (2): $60,000
+Doctores (4): $320,000
+Laboratorios (2): $200,000
+Rayos X (1): $150,000
+Total: $730,000
+
+=== Costo total anual para config_optima ===
+Enfermeras (3): $90,000
+Doctores (5): $400,000
+Laboratorios (2): $200,000
+Rayos X (2): $300,000
+Total: $990,000
+
+=== RECOMENDACIÓN FINAL ===
+Basado en los resultados de la simulación y el análisis de costos, recomendamos:
+Configuración óptima para equilibrar costos y calidad de atención:
+- 2 enfermeras para triage
+- 4 doctores
+- 2 equipos de laboratorio
+- 1 equipo de rayos X
+
+Esta configuración proporciona:
+- Tiempos de espera aceptables incluso en días festivos
+- Priorización adecuada de casos urgentes
+- Costo anual razonable comparado con los beneficios obtenidos

@@ -3,6 +3,34 @@ import random
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+
+# Función para crear directorios
+def crear_directorios():
+    # Obtener la ruta absoluta donde se encuentra este script
+    ruta_base = os.path.dirname(os.path.abspath(__file__))
+    
+    # Definir las rutas para los directorios
+    directorios = [
+        os.path.join(ruta_base, 'output'),
+        os.path.join(ruta_base, 'output', 'graficas'),
+        os.path.join(ruta_base, 'output', 'graficas', 'tiempo_espera'),
+        os.path.join(ruta_base, 'output', 'graficas', 'tiempo_por_prioridad'),
+        os.path.join(ruta_base, 'output', 'graficas', 'distribucion_pacientes'),
+        os.path.join(ruta_base, 'output', 'informes')
+    ]
+    
+    # Crear cada directorio si no existe
+    for directorio in directorios:
+        if not os.path.exists(directorio):
+            try:
+                os.makedirs(directorio)
+                print(f"Directorio creado: {directorio}")
+            except Exception as e:
+                print(f"Error al crear directorio {directorio}: {e}")
+
+# Crear los directorios necesarios al inicio
+crear_directorios()
 
 # Configuración de semilla para reproducibilidad
 random.seed(10)
@@ -44,6 +72,9 @@ class EstadisticasHospital:
         if not self.tiempos_espera:
             return
         
+        # Obtener ruta base
+        ruta_base = os.path.dirname(os.path.abspath(__file__))
+        
         # Gráfica de tiempos de espera
         plt.figure(figsize=(10, 6))
         plt.hist(self.tiempos_espera, bins=20, alpha=0.7, color='skyblue')
@@ -51,7 +82,10 @@ class EstadisticasHospital:
         plt.xlabel('Tiempo de Espera (minutos)')
         plt.ylabel('Número de Pacientes')
         plt.grid(True, alpha=0.3)
-        plt.savefig(f'tiempo_espera_{nombre_configuracion}.png')
+        ruta_grafica = os.path.join(ruta_base, 'output', 'graficas', 'tiempo_espera', f'tiempo_espera_{nombre_configuracion}.png')
+        plt.savefig(ruta_grafica)
+        plt.close()
+        print(f"Gráfica guardada: {ruta_grafica}")
         
         # Gráfica de tiempos totales por prioridad
         plt.figure(figsize=(12, 7))
@@ -69,7 +103,10 @@ class EstadisticasHospital:
         plt.xlabel('Prioridad')
         plt.ylabel('Tiempo Promedio (minutos)')
         plt.grid(True, alpha=0.3)
-        plt.savefig(f'tiempo_por_prioridad_{nombre_configuracion}.png')
+        ruta_grafica = os.path.join(ruta_base, 'output', 'graficas', 'tiempo_por_prioridad', f'tiempo_por_prioridad_{nombre_configuracion}.png')
+        plt.savefig(ruta_grafica)
+        plt.close()
+        print(f"Gráfica guardada: {ruta_grafica}")
         
         # Gráfica de distribución de pacientes por prioridad
         plt.figure(figsize=(10, 6))
@@ -80,7 +117,10 @@ class EstadisticasHospital:
                 colors=['darkred', 'red', 'orange', 'yellow', 'green'])
         plt.axis('equal')
         plt.title(f'Distribución de Pacientes por Prioridad - {nombre_configuracion}')
-        plt.savefig(f'distribucion_pacientes_{nombre_configuracion}.png')
+        ruta_grafica = os.path.join(ruta_base, 'output', 'graficas', 'distribucion_pacientes', f'distribucion_pacientes_{nombre_configuracion}.png')
+        plt.savefig(ruta_grafica)
+        plt.close()
+        print(f"Gráfica guardada: {ruta_grafica}")
 
 # Clase para manejar la simulación
 class HospitalEmergencias:
@@ -190,6 +230,61 @@ def ejecutar_simulacion(config, duracion=24*60, dia_tipo='normal'):
     
     return hospital.estadisticas
 
+# Función para guardar resultados en un archivo de informe
+def guardar_informe(resultados, configuraciones, costos):
+    # Obtener ruta base
+    ruta_base = os.path.dirname(os.path.abspath(__file__))
+    ruta_informe = os.path.join(ruta_base, 'output', 'informes', 'informe_simulacion.txt')
+    
+    try:
+        with open(ruta_informe, 'w') as f:
+            for nombre_config, datos_config in resultados.items():
+                f.write(f"\n=== Resultados para {nombre_config} ===\n")
+                
+                for dia, estadisticas in datos_config.items():
+                    f.write(f"\n--- Día {dia} ---\n")
+                    f.write(f"Pacientes atendidos: {estadisticas['pacientes_atendidos']}\n")
+                    f.write(f"Tiempo de espera promedio: {estadisticas['tiempo_espera_promedio']:.2f} minutos\n")
+                    f.write(f"Tiempo total promedio: {estadisticas['tiempo_total_promedio']:.2f} minutos\n")
+                    f.write(f"Tiempo máximo de espera: {estadisticas['max_tiempo_espera']:.2f} minutos\n")
+                    
+                    f.write("\nTiempo promedio por prioridad:\n")
+                    for p, tiempo in estadisticas['tiempo_promedio_por_prioridad'].items():
+                        f.write(f"  Prioridad {p}: {tiempo:.2f} minutos\n")
+
+            # Análisis de costos
+            for config in configuraciones:
+                costo_total = (
+                    config['num_enfermeras_triage'] * costos['enfermera_anual'] +
+                    config['num_doctores'] * costos['doctor_anual'] +
+                    config['num_laboratorios'] * costos['laboratorio'] +
+                    config['num_rayos_x'] * costos['rayos_x']
+                )
+                
+                f.write(f"\n=== Costo total anual para {config['nombre']} ===\n")
+                f.write(f"Enfermeras ({config['num_enfermeras_triage']}): ${config['num_enfermeras_triage'] * costos['enfermera_anual']:,}\n")
+                f.write(f"Doctores ({config['num_doctores']}): ${config['num_doctores'] * costos['doctor_anual']:,}\n")
+                f.write(f"Laboratorios ({config['num_laboratorios']}): ${config['num_laboratorios'] * costos['laboratorio']:,}\n")
+                f.write(f"Rayos X ({config['num_rayos_x']}): ${config['num_rayos_x'] * costos['rayos_x']:,}\n")
+                f.write(f"Total: ${costo_total:,}\n")
+
+            # Recomendación final
+            f.write("\n=== RECOMENDACIÓN FINAL ===\n")
+            f.write("Basado en los resultados de la simulación y el análisis de costos, recomendamos:\n")
+            f.write("Configuración óptima para equilibrar costos y calidad de atención:\n")
+            f.write("- 2 enfermeras para triage\n")
+            f.write("- 4 doctores\n")
+            f.write("- 2 equipos de laboratorio\n")
+            f.write("- 1 equipo de rayos X\n")
+            f.write("\nEsta configuración proporciona:\n")
+            f.write("- Tiempos de espera aceptables incluso en días festivos\n")
+            f.write("- Priorización adecuada de casos urgentes\n")
+            f.write("- Costo anual razonable comparado con los beneficios obtenidos\n")
+        
+        print(f"Informe guardado en: {ruta_informe}")
+    except Exception as e:
+        print(f"Error al guardar el informe: {e}")
+
 # Configuraciones a probar
 configuraciones = [
     {
@@ -247,6 +342,7 @@ for config in configuraciones:
     
     for dia in dias:
         # Ejecutar simulación de 24 horas
+        print(f"Ejecutando simulación para {config['nombre']} en día {dia}...")
         estadisticas = ejecutar_simulacion(config, duracion=24*60, dia_tipo=dia)
         resultados[config['nombre']][dia] = estadisticas.obtener_estadisticas()
         
@@ -305,3 +401,8 @@ print("\nEsta configuración proporciona:")
 print("- Tiempos de espera aceptables incluso en días festivos")
 print("- Priorización adecuada de casos urgentes")
 print("- Costo anual razonable comparado con los beneficios obtenidos")
+
+# Guardar resultados en archivo
+guardar_informe(resultados, configuraciones, costos)
+
+print("\nSimulación completada. Revisa las carpetas de salida para ver los resultados.")
