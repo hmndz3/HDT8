@@ -74,47 +74,6 @@ javac -cp .:lib/junit-platform-console-standalone-1.8.2.jar src/VectorHeapTest.j
 java -jar lib/junit-platform-console-standalone-1.8.2.jar -cp src --scan-class-path
 ```
 
-### Parte 2: Simulación en Python
-
-1. Crear las carpetas de salida:
-```bash
-cd parte2-python
-mkdir -p output/graficas output/informes
-```
-
-2. Ejecutar la simulación:
-```bash
-cd parte2-python
-python emergency_simulation.py
-```
-
-## Problema con generación de gráficas e informes
-
-Si al ejecutar la simulación no se generan las gráficas o el informe en la carpeta `output/`, puede deberse a permisos o problemas con la estructura de directorios. Sigue estos pasos para solucionar el problema:
-
-1. Verifica que la estructura de carpetas existe:
-```bash
-mkdir -p parte2-python/output/graficas/tiempo_espera
-mkdir -p parte2-python/output/graficas/tiempo_por_prioridad  
-mkdir -p parte2-python/output/graficas/distribucion_pacientes
-mkdir -p parte2-python/output/informes
-```
-
-2. Modifica el script `emergency_simulation.py` para usar rutas relativas correctas:
-
-Cambia todas las rutas de guardado por rutas absolutas o verifica las rutas relativas. Por ejemplo:
-
-```python
-# En lugar de:
-plt.savefig(f'output/graficas/tiempo_espera/tiempo_espera_{nombre_configuracion}.png')
-
-# Usa una ruta como:
-import os
-ruta_base = os.path.dirname(os.path.abspath(__file__))
-ruta_completa = os.path.join(ruta_base, 'output', 'graficas', 'tiempo_espera', f'tiempo_espera_{nombre_configuracion}.png')
-plt.savefig(ruta_completa)
-```
-
 ## Descripción de los archivos
 
 ### Parte 1 (Java)
